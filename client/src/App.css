@@ -3,18 +3,191 @@
   justify-content: center;
   /* align-items: center; */
 }
+.container {
+  position: relative;
+  padding: 15px 30px;
+  max-width: 350px;
+  /* border: 3px solid rgb(12, 104, 180); */
+}
 .shop-image {
-  width: 30px;
-  height: 30px;
-  border: 2px solid rgb(12, 111, 124);
+  width: 45px;
+  height: 45px;
+  border: 1px solid rgb(131, 131, 131);
   border-radius: 50%;
-
-  background-position: center;
-  background-size: cover;
+  cursor: pointer;
   display: inline-block;
-  margin: 5px;
+}
+.form-bottom {
+  text-align: center;
+}
+h1 {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+.expense-date {
+  opacity: 0;
+  position: absolute;
+  right: 30px;
+}
+.form {
+  /* border: 1px solid red; */
+  margin-top: 30px;
 }
 .rooms {
-  margin: 3px;
+  /* margin: 3px; */
+  justify-content: space-between;
+  /* border: 1px solid red; */
+  /* flex-direction: column;, */
+}
+.rooms span {
   cursor: pointer;
+  display: inline-block;
+  margin: 0 3px 5px 0;
+  border: 1px solid rgb(87, 169, 247);
+  border-radius: 25px;
+  padding: 2px 5px;
+  font-size: 0.85em;
+  background-color: #cde6fd;
+}
+.shops {
+  display: flex;
+  justify-content: space-between;
+}
+.new-expense-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.new-expense-header img {
+  width: 45px;
+}
+.new-expense-date {
+  text-decoration: underline;
+}
+.shop-selected,
+.room-selected {
+  /* border-width: 2px; */
+  box-shadow: 0 0 0 2px rgb(12, 104, 180);
+}
+.form button {
+  padding: 7px 12px;
+  background: #1155cb;
+  color: #fff;
+  border: none;
+  box-shadow: 0 0 2px 1px rgb(0 0 0 / 6%);
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  /* display: block; */
+  font-family: "Outfit", sans-serif;
+}
+.form-bottom {
+  margin-top: 20px;
+}
+.label {
+  font-weight: 600;
+  margin-top: 30px;
+}
+.numeric-container {
+  display: block;
+  width: 50%;
+  margin: 0 auto;
+  border-bottom: 1px solid black;
+}
+.keyboard span {
+  display: inline-block;
+  width: 29.5%;
+  text-align: center;
+  padding: 5px;
+  font-size: 1.6em;
+  cursor: pointer;
+  margin: 2px;
+}
+.keyboard-header {
+  background-color: #f0f0f1;
+  text-align: right;
+  border-top: 1px solid #c6c7c9;
+  height: 40px;
+}
+.keyboard-header span {
+  color: #027aff;
+  font-size: 1em;
+  font-weight: 500;
+  margin-top: 5px;
+}
+.keyboard-numbers {
+  background-color: #d1d3d9;
+}
+.number {
+  /* border: 1px solid black; */
+  box-shadow: 0 2px 1px -1px #87898d;
+  border-radius: 5px;
+  background-color: #fff;
+  height: 35px;
+}
+.keyboard {
+  width: 100%;
+  position: fixed;
+  bottom: -300px;
+  left: 0;
+  z-index: 1;
+  right: 0;
+  transition: bottom 0.4s;
+}
+.keyboard span img {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+.numeric-container input {
+  border-radius: 0;
+  border: none;
+}
+.categories {
+  width: 300px;
+  /* border: 1px solid red; */
+}
+.categories span {
+  display: inline-block;
+  margin: 0 3px 5px 0;
+  border: 1px solid rgb(4, 126, 40);
+  border-radius: 25px;
+  padding: 2px 5px;
+  cursor: pointer;
+  font-size: 0.85em;
+  background-color: #d7fccf;
+}
+.categories-selected {
+  /* border-width: 2px; */
+  box-shadow: 0 0 0 2px rgb(12, 104, 180);
+}
+.amount-own-input {
+  border: none;
+  border-bottom: 1px solid rgb(158, 158, 158);
+  padding: 2px 5px;
+  font-size: 1.3em;
+  margin-top: 8px;
+  font-family: "Outfit", sans-serif;
+  width: 50%;
+  height: 30px;
+  margin: 8px auto;
+  text-align: center;
+  border-radius: 0;
+}
+.amount-own-input span {
+  /* animation: blinker 1s infinite; */
+  /* transition: opacity 0.5s; */
+}
+.blink {
+  /* opacity: 1; */
+  animation: blinker 1s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+.label-amount {
+  text-align: center;
+  /* margin-bottom: 30px; */
 }

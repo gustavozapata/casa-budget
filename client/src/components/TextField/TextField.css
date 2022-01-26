@@ -1,0 +1,26 @@
+.TextField {
+  margin-bottom: 35px;
+}
+.TextField input {
+  border: none;
+  border-bottom: 1px solid rgb(158, 158, 158);
+  padding: 2px 5px;
+  font-size: 1.3em;
+  margin-top: 8px;
+  font-family: "Outfit", sans-serif;
+  width: 97%;
+  border-radius: 0;
+}
+.textfield-center {
+  text-align: center;
+}
+.textfield-center input {
+  text-align: center;
+  width: 40%;
+}
+.TextField label {
+  font-weight: 600;
+}
+.TextField input:focus {
+  outline: none;
+}

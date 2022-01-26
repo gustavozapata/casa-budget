@@ -1,23 +1,26 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { handleNewExpenseForm } from "../../store/appSlice";
+import "./TextField.css";
 
-const TextField = ({ name, value }) => {
+const TextField = ({ label, name, value, type, center }) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="TextField">
+    <div className={`TextField ${center && "textfield-center"}`}>
       <label htmlFor={name}>
-        {name}
+        {label}
         <br />
         <input
-          type="text"
-          name={name.toLowerCase()}
+          type={type}
+          step="0.01"
+          pattern="[0-9]*"
+          name={name}
           value={value}
           onChange={(e) =>
             dispatch(
               handleNewExpenseForm({
-                element: e.target.name.toLowerCase(),
+                element: e.target.name,
                 value: e.target.value,
               })
             )

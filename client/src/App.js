@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   addExpense,
   populateNewExpenseForm,
@@ -10,6 +10,7 @@ import TextField from "./components/TextField/TextField";
 import "./App.css";
 
 function App() {
+  const [showKeyboard, setShowKeyboard] = useState(false);
   const newExpensesForm = useSelector((state) => state.app.newExpensesForm);
   const shops = useSelector((state) => state.app.shops);
   const rooms = useSelector((state) => state.app.rooms);
@@ -25,63 +26,125 @@ function App() {
     fetchData();
   }, [dispatch]);
 
+  // function handleClickOutside(event) {
+  //   if (event.target.className !== "numeric-container") {
+  //     setShowKeyboard(false);
+  //   }
+  // }
+  // document.addEventListener("mousedown", handleClickOutside);
+
   return (
     <div className="App">
       <div className="container">
-        <h1>Casita Expenses Tracker</h1>
-        <div className="form">
-          <TextField name="Name" value={newExpensesForm.name} />
-          <TextField name="Amount" value={newExpensesForm.amount} />
-          {shops.map((shop) => (
-            <span
-              className="shop-image"
-              style={{
-                backgroundImage: `url(${shop.image})`,
-                borderColor:
-                  newExpensesForm.shop === shop.name ? "blue" : "transparent",
-              }}
-              key={shop.id}
-              onClick={() =>
-                dispatch(
-                  handleNewExpenseForm({
-                    element: "shop",
-                    value: shop.name,
-                  })
-                )
-              }
-            ></span>
-            // <img className="shop-image" src={shop.image} alt={shop.name} />
-          ))}
-          <br />
-          {rooms.map((room) => (
-            <span
-              className="rooms"
-              style={{
-                border:
-                  newExpensesForm.room === room.name
-                    ? "1px solid red"
-                    : "1px solid transparent",
-              }}
-              onClick={() =>
-                dispatch(
-                  handleNewExpenseForm({
-                    element: "room",
-                    value: room.name,
-                  })
-                )
-              }
-            >
-              {room.name}
-            </span>
-          ))}
-          <br />
-          {categories.map((category) => (
-            <span className="rooms">{category.name}</span>
-          ))}
+        <div className="new-expense-header">
+          <div>
+            <img src="/images/logo.png" alt="Casa Budget logo" />
+          </div>
+          <h1>New Expense</h1>
+          <span className="new-expense-date">27 Jan</span>
+          <input className="expense-date" type="date" />
         </div>
-        <button onClick={() => dispatch(addExpense(newExpensesForm))}>
-          Send
-        </button>
+        <div className="form">
+          <TextField
+            label="Expense"
+            name="name"
+            value={newExpensesForm.name}
+            type="text"
+          />
+          {/* <TextField
+            label="Amount"
+            name="amount"
+            type="number"
+            center={true}
+            value={newExpensesForm.amount}
+          /> */}
+          <div
+            className="amount-container"
+            onClick={() => setShowKeyboard(true)}
+          >
+            <p className="label label-amount">Amount</p>
+            <div className="amount-own-input">
+              <span>
+                {newExpensesForm.amount}
+                <span className="blink">|</span>
+              </span>
+            </div>
+          </div>
+
+          <p className="label">Shop</p>
+          <div className="shops">
+            {shops.map((shop) => (
+              <img
+                className={`shop-image ${
+                  newExpensesForm.shop === shop.name && "shop-selected"
+                }`}
+                src={shop.image}
+                alt={shop.name}
+                onClick={() =>
+                  dispatch(
+                    handleNewExpenseForm({ element: "shop", value: shop.name })
+                  )
+                }
+              />
+            ))}
+          </div>
+          <p className="label">Room</p>
+          <div className="rooms">
+            {rooms.map((room) => (
+              <span
+                className={`${
+                  newExpensesForm.room === room.name && "room-selected"
+                }`}
+                onClick={() =>
+                  dispatch(
+                    handleNewExpenseForm({
+                      element: "room",
+                      value: room.name,
+                    })
+                  )
+                }
+              >
+                {room.name}
+              </span>
+            ))}
+          </div>
+          <p className="label">
+            Categories <span>(multiple)</span>
+          </p>
+          <div className="categories">
+            {categories.map((category) => (
+              <span
+                className={`${
+                  newExpensesForm.category === category.name &&
+                  "categories-selected"
+                }`}
+              >
+                {category.name}
+              </span>
+            ))}
+          </div>
+
+          <div className="form-bottom">
+            <button onClick={() => dispatch(addExpense(newExpensesForm))}>
+              Add expense
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="keyboard" style={{ bottom: showKeyboard ? 0 : "-300px" }}>
+        <div className="keyboard-header">
+          <span onClick={() => setShowKeyboard(false)}>Done</span>
+        </div>
+        <div className="keyboard-numbers">
+          {Array.from(Array(9).keys()).map((i) => (
+            <span className="number">{i + 1}</span>
+          ))}
+          <span className="decimal">.</span>
+          <span className="number">0</span>
+          <span className="delete">
+            <img src="/images/delete.png" alt="erase icon" />
+          </span>
+        </div>
       </div>
     </div>
   );
