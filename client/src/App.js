@@ -26,6 +26,10 @@ function App() {
     fetchData();
   }, [dispatch]);
 
+  const setFormField = (element, value) => {
+    dispatch(handleNewExpenseForm({ element, value }));
+  };
+
   // function handleClickOutside(event) {
   //   if (event.target.className !== "numeric-container") {
   //     setShowKeyboard(false);
@@ -66,7 +70,12 @@ function App() {
             <div className="amount-own-input">
               <span>
                 {newExpensesForm.amount}
-                <span className="blink">|</span>
+                <span
+                  className="blink"
+                  style={{ opacity: showKeyboard ? 1 : 0 }}
+                >
+                  |
+                </span>
               </span>
             </div>
           </div>
@@ -80,11 +89,7 @@ function App() {
                 }`}
                 src={shop.image}
                 alt={shop.name}
-                onClick={() =>
-                  dispatch(
-                    handleNewExpenseForm({ element: "shop", value: shop.name })
-                  )
-                }
+                onClick={() => setFormField("shop", shop.name)}
               />
             ))}
           </div>
@@ -95,14 +100,7 @@ function App() {
                 className={`${
                   newExpensesForm.room === room.name && "room-selected"
                 }`}
-                onClick={() =>
-                  dispatch(
-                    handleNewExpenseForm({
-                      element: "room",
-                      value: room.name,
-                    })
-                  )
-                }
+                onClick={() => setFormField("room", room.name)}
               >
                 {room.name}
               </span>
@@ -137,9 +135,21 @@ function App() {
         </div>
         <div className="keyboard-numbers">
           {Array.from(Array(9).keys()).map((i) => (
-            <span className="number">{i + 1}</span>
+            <span
+              className="number"
+              onClick={() =>
+                setFormField("amount", newExpensesForm.amount + (i + 1))
+              }
+            >
+              {i + 1}
+            </span>
           ))}
-          <span className="decimal">.</span>
+          <span
+            className="decimal"
+            onClick={() => setFormField("amount", newExpensesForm.amount + ".")}
+          >
+            .
+          </span>
           <span className="number">0</span>
           <span className="delete">
             <img src="/images/delete.png" alt="erase icon" />

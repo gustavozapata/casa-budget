@@ -1,13 +1,11 @@
 .App {
   display: flex;
   justify-content: center;
-  /* align-items: center; */
 }
 .container {
   position: relative;
   padding: 15px 30px;
   max-width: 350px;
-  /* border: 3px solid rgb(12, 104, 180); */
 }
 .shop-image {
   width: 45px;
@@ -30,14 +28,10 @@ h1 {
   right: 30px;
 }
 .form {
-  /* border: 1px solid red; */
   margin-top: 30px;
 }
 .rooms {
-  /* margin: 3px; */
   justify-content: space-between;
-  /* border: 1px solid red; */
-  /* flex-direction: column;, */
 }
 .rooms span {
   cursor: pointer;
@@ -66,7 +60,6 @@ h1 {
 }
 .shop-selected,
 .room-selected {
-  /* border-width: 2px; */
   box-shadow: 0 0 0 2px rgb(12, 104, 180);
 }
 .form button {
@@ -78,7 +71,6 @@ h1 {
   border-radius: 5px;
   font-size: 1em;
   cursor: pointer;
-  /* display: block; */
   font-family: "Outfit", sans-serif;
 }
 .form-bottom {
@@ -119,7 +111,6 @@ h1 {
   background-color: #d1d3d9;
 }
 .number {
-  /* border: 1px solid black; */
   box-shadow: 0 2px 1px -1px #87898d;
   border-radius: 5px;
   background-color: #fff;
@@ -145,7 +136,6 @@ h1 {
 }
 .categories {
   width: 300px;
-  /* border: 1px solid red; */
 }
 .categories span {
   display: inline-block;
@@ -158,7 +148,6 @@ h1 {
   background-color: #d7fccf;
 }
 .categories-selected {
-  /* border-width: 2px; */
   box-shadow: 0 0 0 2px rgb(12, 104, 180);
 }
 .amount-own-input {
@@ -174,12 +163,7 @@ h1 {
   text-align: center;
   border-radius: 0;
 }
-.amount-own-input span {
-  /* animation: blinker 1s infinite; */
-  /* transition: opacity 0.5s; */
-}
 .blink {
-  /* opacity: 1; */
   animation: blinker 1s linear infinite;
 }
 @keyframes blinker {
@@ -189,5 +173,4 @@ h1 {
 }
 .label-amount {
   text-align: center;
-  /* margin-bottom: 30px; */
 }
