@@ -6,16 +6,19 @@ const initialState = {
   newExpensesForm: {
     name: "",
     amount: "",
-    date: "",
+    date: new Date().toISOString().slice(0, 10),
     description: "",
     worker: "",
+    company: "",
     shop: "",
     room: "",
-    category: "",
+    category: [],
   },
   shops: [],
   rooms: [],
   categories: [],
+  workers: [],
+  companies: [],
 };
 
 export const appSlice = createSlice({
@@ -29,9 +32,17 @@ export const appSlice = createSlice({
       state.shops = action.payload.shops;
       state.rooms = action.payload.rooms;
       state.categories = action.payload.categories;
+      state.workers = action.payload.workers;
+      state.companies = action.payload.companies;
     },
     handleNewExpenseForm: (state, action) => {
-      state.newExpensesForm[action.payload.element] = action.payload.value;
+      if (action.payload.element === "category") {
+        state.newExpensesForm[action.payload.element].push(
+          action.payload.value
+        );
+      } else {
+        state.newExpensesForm[action.payload.element] = action.payload.value;
+      }
     },
   },
 });

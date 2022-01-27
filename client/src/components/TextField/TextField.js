@@ -13,8 +13,6 @@ const TextField = ({ label, name, value, type, center }) => {
         <br />
         <input
           type={type}
-          step="0.01"
-          pattern="[0-9]*"
           name={name}
           value={value}
           onChange={(e) =>

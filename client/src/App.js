@@ -15,6 +15,8 @@ function App() {
   const shops = useSelector((state) => state.app.shops);
   const rooms = useSelector((state) => state.app.rooms);
   const categories = useSelector((state) => state.app.categories);
+  const workers = useSelector((state) => state.app.workers);
+  const companies = useSelector((state) => state.app.companies);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,8 +47,15 @@ function App() {
             <img src="/images/logo.png" alt="Casa Budget logo" />
           </div>
           <h1>New Expense</h1>
-          <span className="new-expense-date">27 Jan</span>
-          <input className="expense-date" type="date" />
+          <span className="new-expense-date">
+            {newExpensesForm.date.substring(5, 10)}
+          </span>
+          <input
+            className="expense-date"
+            type="date"
+            value={newExpensesForm.date}
+            onChange={(e) => setFormField("date", e.target.value)}
+          />
         </div>
         <div className="form">
           <TextField
@@ -55,13 +64,6 @@ function App() {
             value={newExpensesForm.name}
             type="text"
           />
-          {/* <TextField
-            label="Amount"
-            name="amount"
-            type="number"
-            center={true}
-            value={newExpensesForm.amount}
-          /> */}
           <div
             className="amount-container"
             onClick={() => setShowKeyboard(true)}
@@ -84,6 +86,7 @@ function App() {
           <div className="shops">
             {shops.map((shop) => (
               <img
+                key={shop.name}
                 className={`shop-image ${
                   newExpensesForm.shop === shop.name && "shop-selected"
                 }`}
@@ -97,6 +100,7 @@ function App() {
           <div className="rooms">
             {rooms.map((room) => (
               <span
+                key={room.name}
                 className={`${
                   newExpensesForm.room === room.name && "room-selected"
                 }`}
@@ -112,15 +116,51 @@ function App() {
           <div className="categories">
             {categories.map((category) => (
               <span
+                key={category.name}
                 className={`${
-                  newExpensesForm.category === category.name &&
+                  newExpensesForm.category.includes(category.name) &&
                   "categories-selected"
                 }`}
+                onClick={() => setFormField("category", category.name)}
               >
                 {category.name}
               </span>
             ))}
           </div>
+          <p className="label">Worker</p>
+          <div className="workers">
+            {workers.map((worker) => (
+              <span
+                key={worker.name}
+                onClick={() => setFormField("worker", worker.name)}
+                className={`${
+                  newExpensesForm.worker === worker.name && "worker-selected"
+                }`}
+              >
+                {worker.name}
+              </span>
+            ))}
+          </div>
+          <p className="label">Company</p>
+          <div className="companies">
+            {companies.map((company) => (
+              <span
+                key={company.name}
+                onClick={() => setFormField("company", company.name)}
+                className={`${
+                  newExpensesForm.company === company.name && "company-selected"
+                }`}
+              >
+                {company.name}
+              </span>
+            ))}
+          </div>
+          <TextField
+            label="Description"
+            name="description"
+            type="text"
+            value={newExpensesForm.description}
+          />
 
           <div className="form-bottom">
             <button onClick={() => dispatch(addExpense(newExpensesForm))}>
@@ -136,6 +176,7 @@ function App() {
         <div className="keyboard-numbers">
           {Array.from(Array(9).keys()).map((i) => (
             <span
+              key={i}
               className="number"
               onClick={() =>
                 setFormField("amount", newExpensesForm.amount + (i + 1))
@@ -150,8 +191,24 @@ function App() {
           >
             .
           </span>
-          <span className="number">0</span>
-          <span className="delete">
+          <span
+            className="number"
+            onClick={() => setFormField("amount", newExpensesForm.amount + 0)}
+          >
+            0
+          </span>
+          <span
+            className="delete"
+            onClick={() =>
+              setFormField(
+                "amount",
+                newExpensesForm.amount.substring(
+                  0,
+                  newExpensesForm.amount.length - 1
+                )
+              )
+            }
+          >
             <img src="/images/delete.png" alt="erase icon" />
           </span>
         </div>

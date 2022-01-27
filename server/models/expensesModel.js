@@ -6,9 +6,13 @@ const expensesSchema = new Schema({
   description: String,
   shop: String,
   worker: String,
+  company: String,
   room: String,
-  category: String,
-  amount: Number,
+  category: [String],
+  amount: {
+    type: Number,
+    default: 0,
+  },
   date: Date,
 });
 
