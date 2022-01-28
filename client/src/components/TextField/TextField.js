@@ -1,9 +1,10 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { handleNewExpenseForm } from "../../store/appSlice";
+import { focusTextField, handleNewExpenseForm } from "../../store/appSlice";
+import SearchSuggestions from "../SearchSuggestions.js/SearchSuggestions";
 import "./TextField.css";
 
-const TextField = ({ label, name, value, type, center }) => {
+const TextField = ({ label, name, value, type, center, isSearch }) => {
   const dispatch = useDispatch();
 
   return (
@@ -15,16 +16,20 @@ const TextField = ({ label, name, value, type, center }) => {
           type={type}
           name={name}
           value={value}
+          autoComplete="off"
+          onFocus={() => dispatch(focusTextField({ name, value, isSearch }))}
           onChange={(e) =>
             dispatch(
               handleNewExpenseForm({
-                element: e.target.name,
+                name,
                 value: e.target.value,
+                isSearch,
               })
             )
           }
         />
       </label>
+      <SearchSuggestions name={name} value={value} isSearch={isSearch} />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import {
   addExpense,
   populateNewExpenseForm,
   handleNewExpenseForm,
+  loadExpenses,
 } from "./store/appSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllContentfulData } from "./services";
@@ -15,12 +16,11 @@ function App() {
   const shops = useSelector((state) => state.app.shops);
   const rooms = useSelector((state) => state.app.rooms);
   const categories = useSelector((state) => state.app.categories);
-  const workers = useSelector((state) => state.app.workers);
-  const companies = useSelector((state) => state.app.companies);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
+      dispatch(loadExpenses());
       const content = await getAllContentfulData();
       console.log(content);
       dispatch(populateNewExpenseForm(content));
@@ -28,16 +28,9 @@ function App() {
     fetchData();
   }, [dispatch]);
 
-  const setFormField = (element, value) => {
-    dispatch(handleNewExpenseForm({ element, value }));
+  const setFormField = (name, value) => {
+    dispatch(handleNewExpenseForm({ name, value }));
   };
-
-  // function handleClickOutside(event) {
-  //   if (event.target.className !== "numeric-container") {
-  //     setShowKeyboard(false);
-  //   }
-  // }
-  // document.addEventListener("mousedown", handleClickOutside);
 
   return (
     <div className="App">
@@ -111,7 +104,7 @@ function App() {
             ))}
           </div>
           <p className="label">
-            Categories <span>(multiple)</span>
+            Categories <span className="cat-multiple">(multiple)</span>
           </p>
           <div className="categories">
             {categories.map((category) => (
@@ -127,34 +120,20 @@ function App() {
               </span>
             ))}
           </div>
-          <p className="label">Worker</p>
-          <div className="workers">
-            {workers.map((worker) => (
-              <span
-                key={worker.name}
-                onClick={() => setFormField("worker", worker.name)}
-                className={`${
-                  newExpensesForm.worker === worker.name && "worker-selected"
-                }`}
-              >
-                {worker.name}
-              </span>
-            ))}
-          </div>
-          <p className="label">Company</p>
-          <div className="companies">
-            {companies.map((company) => (
-              <span
-                key={company.name}
-                onClick={() => setFormField("company", company.name)}
-                className={`${
-                  newExpensesForm.company === company.name && "company-selected"
-                }`}
-              >
-                {company.name}
-              </span>
-            ))}
-          </div>
+          <TextField
+            label="Worker"
+            name="worker"
+            type="text"
+            isSearch={true}
+            value={newExpensesForm.worker}
+          />
+          <TextField
+            label="Company"
+            name="company"
+            type="text"
+            isSearch={true}
+            value={newExpensesForm.company}
+          />
           <TextField
             label="Description"
             name="description"

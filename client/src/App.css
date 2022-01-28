@@ -37,11 +37,12 @@ h1 {
   cursor: pointer;
   display: inline-block;
   margin: 0 6px 6px 0;
-  border: 1px solid rgb(87, 169, 247);
+  /* border: 1px solid rgb(87, 169, 247); */
+  border: 1px solid rgb(172, 172, 172);
   border-radius: 25px;
   padding: 2px 5px;
   font-size: 0.85em;
-  background-color: #cde6fd;
+  /* background-color: #cde6fd; */
 }
 .shops {
   display: flex;
@@ -58,11 +59,14 @@ h1 {
 .new-expense-date {
   text-decoration: underline;
 }
-.shop-selected,
-.room-selected,
-.worker-selected,
-.company-selected {
-  box-shadow: 0 0 0 2px rgb(12, 104, 180);
+.shop-selected {
+  box-shadow: 0 0 0 2px #1155cb;
+}
+.rooms .room-selected {
+  /* background-color: #cde6fd; */
+  background-color: #1155cb;
+  border-color: black;
+  color: white;
 }
 .form button {
   padding: 10px 12px;
@@ -81,6 +85,7 @@ h1 {
 }
 .label {
   font-weight: 600;
+  /* font-size: 0.8em; */
   margin-top: 30px;
 }
 .numeric-container {
@@ -144,15 +149,23 @@ h1 {
 .categories span {
   display: inline-block;
   margin: 0 6px 6px 0;
-  border: 1px solid rgb(4, 126, 40);
+  /* border: 1px solid rgb(4, 126, 40); */
+  border: 1px solid rgb(172, 172, 172);
   border-radius: 25px;
   padding: 2px 5px;
   cursor: pointer;
   font-size: 0.85em;
-  background-color: #d7fccf;
+  /* background-color: #d7fccf; */
 }
-.categories-selected {
-  box-shadow: 0 0 0 2px rgb(12, 104, 180);
+.cat-multiple {
+  font-weight: 400;
+}
+.categories .categories-selected {
+  /* box-shadow: 0 0 0 2px rgb(12, 104, 180); */
+  /* background-color: #d7fccf; */
+  background-color: #1155cb;
+  color: #fff;
+  border-color: black;
 }
 .amount-own-input {
   border: none;
@@ -179,30 +192,4 @@ h1 {
 .label-amount {
   text-align: center;
   margin-bottom: 4px;
-}
-.workers {
-  margin-bottom: 30px;
-}
-.workers span {
-  display: inline-block;
-  margin: 0 6px 6px 0;
-  border: 1px solid rgb(51, 4, 126);
-  border-radius: 25px;
-  padding: 2px 5px;
-  cursor: pointer;
-  font-size: 0.85em;
-  background-color: #e9d6f8;
-}
-.companies {
-  margin-bottom: 30px;
-}
-.companies span {
-  display: inline-block;
-  margin: 0 6px 6px 0;
-  border: 1px solid rgb(4, 126, 110);
-  border-radius: 25px;
-  padding: 2px 5px;
-  cursor: pointer;
-  font-size: 0.85em;
-  background-color: #d6f8f4;
 }

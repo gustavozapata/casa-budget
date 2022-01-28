@@ -1,8 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
   expenses: [],
+  suggestions: [],
+  textFieldFocus: "",
   newExpensesForm: {
     name: "",
     amount: "",
@@ -25,39 +27,87 @@ export const appSlice = createSlice({
   name: "counter",
   initialState,
   reducers: {
-    loadExpenses: (state, action) => {
+    setExpenses: (state, action) => {
       state.expenses = action.payload;
+    },
+    focusTextField: (state, action) => {
+      state.textFieldFocus = action.payload.name;
+      populateSuggestions(state, action);
+    },
+    selectSuggestion: (state, action) => {
+      state.newExpensesForm[action.payload.name] = action.payload.value;
+      state.textFieldFocus = "";
     },
     populateNewExpenseForm: (state, action) => {
       state.shops = action.payload.shops;
       state.rooms = action.payload.rooms;
       state.categories = action.payload.categories;
-      state.workers = action.payload.workers;
-      state.companies = action.payload.companies;
     },
     handleNewExpenseForm: (state, action) => {
-      if (action.payload.element === "category") {
-        state.newExpensesForm[action.payload.element].push(
-          action.payload.value
-        );
+      if (action.payload.name === "category") {
+        if (state.newExpensesForm.category.includes(action.payload.value)) {
+          state.newExpensesForm.category = state.newExpensesForm[
+            action.payload.name
+          ].filter((element) => element !== action.payload.value);
+        } else {
+          state.newExpensesForm[action.payload.name].push(action.payload.value);
+        }
       } else {
-        state.newExpensesForm[action.payload.element] = action.payload.value;
+        if (
+          state.newExpensesForm[action.payload.name] === action.payload.value
+        ) {
+          state.newExpensesForm[action.payload.name] = "";
+        } else {
+          state.newExpensesForm[action.payload.name] = action.payload.value;
+        }
       }
+
+      populateSuggestions(state, action);
     },
   },
 });
 
-export const { loadExpenses, handleNewExpenseForm, populateNewExpenseForm } =
-  appSlice.actions;
+export const populateSuggestions = (state, action) => {
+  if (action.payload.isSearch) {
+    // populate suggestions
+    state.suggestions = state.expenses
+      .filter((expense) => expense[action.payload.name])
+      .map((expense) => expense[action.payload.name]);
 
-export const addExpense = (expense) => async (dispatch) => {
+    // remove duplicates
+    state.suggestions = state.suggestions.filter(
+      (item, index) => state.suggestions.indexOf(item) === index
+    );
+
+    // filter suggestions
+    state.suggestions = state.suggestions.filter((suggestion) =>
+      suggestion.toLowerCase().includes(action.payload.value.toLowerCase())
+    );
+    // return state.suggestions;
+  }
+};
+
+export const {
+  setExpenses,
+  handleNewExpenseForm,
+  populateNewExpenseForm,
+  focusTextField,
+  selectSuggestion,
+} = appSlice.actions;
+
+export const addExpense = (expense) => async () => {
   const newExpense = await axios.post(
     `http://localhost:4000/expenses`,
     { expense }
     // { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
   );
   console.log(newExpense);
-  dispatch(loadExpenses(newExpense.data));
+};
+
+export const loadExpenses = () => async (dispatch) => {
+  const expenses = await axios.get(`http://localhost:4000/expenses`);
+  console.log(expenses.data.data);
+  dispatch(setExpenses(expenses.data.data));
 };
 
 export default appSlice.reducer;

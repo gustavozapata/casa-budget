@@ -28,22 +28,6 @@ export const getAllContentfulData = async () => {
         name
       }
     }
-    workerCollection {
-      items {
-        sys {
-          id
-        }
-        name
-      }
-    }
-    companyCollection {
-      items {
-        sys {
-          id
-        }
-        name
-      }
-    }
   }`;
 
   const fetchOptions = {
@@ -77,14 +61,6 @@ const parseContentfulItems = (data) => {
     categories: data.categoryCollection.items.map((category) => ({
       id: category.sys.id,
       name: category.name,
-    })),
-    workers: data.workerCollection.items.map((worker) => ({
-      id: worker.sys.id,
-      name: worker.name,
-    })),
-    companies: data.companyCollection.items.map((company) => ({
-      id: company.sys.id,
-      name: company.name,
     })),
   };
   return content;
