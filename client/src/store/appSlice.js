@@ -5,6 +5,9 @@ const initialState = {
   expenses: [],
   suggestions: [],
   textFieldFocus: "",
+  serverError: "",
+  // isLogged: JSON.parse(localStorage.getItem("isLogged")),
+  isLogged: false,
   newExpensesForm: {
     name: "",
     amount: "",
@@ -29,6 +32,13 @@ export const appSlice = createSlice({
   reducers: {
     setExpenses: (state, action) => {
       state.expenses = action.payload;
+      console.log(action.payload);
+    },
+    setLogin: (state, action) => {
+      state.isLogged = action.payload;
+    },
+    setServerError: (state, action) => {
+      state.serverError = action.payload;
     },
     focusTextField: (state, action) => {
       state.textFieldFocus = action.payload.name;
@@ -61,7 +71,6 @@ export const appSlice = createSlice({
           state.newExpensesForm[action.payload.name] = action.payload.value;
         }
       }
-
       populateSuggestions(state, action);
     },
   },
@@ -93,6 +102,8 @@ export const {
   populateNewExpenseForm,
   focusTextField,
   selectSuggestion,
+  setLogin,
+  setServerError,
 } = appSlice.actions;
 
 export const addExpense = (expense) => async () => {
@@ -108,6 +119,19 @@ export const loadExpenses = () => async (dispatch) => {
   const expenses = await axios.get(`http://localhost:4000/expenses`);
   console.log(expenses.data.data);
   dispatch(setExpenses(expenses.data.data));
+};
+
+export const login = (email, password) => async (dispatch) => {
+  try {
+    const user = await axios.post(`http://localhost:4000/login`, {
+      email,
+      password,
+    });
+    dispatch(setLogin(user.data.isLogged));
+  } catch (e) {
+    console.log("Casa Budget Error", e.response);
+    dispatch(setServerError(e.response.data.message));
+  }
 };
 
 export default appSlice.reducer;

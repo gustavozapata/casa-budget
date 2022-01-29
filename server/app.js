@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 
 const expensesRouter = require("./routes/expensesRoutes");
+const authRouter = require("./routes/authRoutes");
 
 const app = express();
 
@@ -16,5 +17,6 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use("/expenses", expensesRouter);
+app.use("/login", authRouter);
 
 module.exports = app;
