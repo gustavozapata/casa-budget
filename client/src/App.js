@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { addExpense, handleNewExpenseForm } from "./store/appSlice";
+import {
+  addExpense,
+  handleNewExpenseForm,
+  loadInitialData,
+} from "./store/appSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextField from "./components/TextField/TextField";
 import "./App.css";
 
@@ -12,9 +16,17 @@ function App() {
   const rooms = useSelector((state) => state.app.rooms);
   const categories = useSelector((state) => state.app.categories);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const setFormField = (name, value) => {
     dispatch(handleNewExpenseForm({ name, value }));
+  };
+
+  const createExpense = () => {
+    if (dispatch(addExpense(newExpensesForm))) {
+      navigate("/");
+      dispatch(loadInitialData());
+    }
   };
 
   return (
@@ -129,9 +141,7 @@ function App() {
           />
 
           <div className="form-bottom">
-            <button onClick={() => dispatch(addExpense(newExpensesForm))}>
-              Add expense
-            </button>
+            <button onClick={createExpense}>Add expense</button>
           </div>
         </div>
       </div>

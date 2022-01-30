@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getAllContentfulData } from "../services";
@@ -8,8 +7,8 @@ const initialState = {
   suggestions: [],
   textFieldFocus: "",
   serverError: "",
-  // isLogged: JSON.parse(localStorage.getItem("isLogged")),
-  isLogged: false,
+  isLogged: JSON.parse(localStorage.getItem("isLogged")),
+  // isLogged: false,
   newExpensesForm: {
     name: "",
     amount: "",
@@ -38,10 +37,12 @@ export const appSlice = createSlice({
     },
     setLogin: (state, action) => {
       state.isLogged = action.payload;
+      localStorage.setItem("isLogged", JSON.stringify(action.payload));
       state.serverError = "";
     },
     logout: (state) => {
       state.isLogged = false;
+      localStorage.setItem("isLogged", JSON.stringify(false));
     },
     setDashboardData: (state) => {
       let shops = state.expenses.map((expense) => expense.shop);
@@ -168,12 +169,12 @@ export const loadContent = () => async (dispatch) => {
 };
 
 export const addExpense = (expense) => async () => {
-  const newExpense = await axios.post(
+  await axios.post(
     `http://localhost:4000/expenses`,
     { expense }
     // { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
   );
-  console.log(newExpense);
+  return true;
 };
 
 export default appSlice.reducer;
