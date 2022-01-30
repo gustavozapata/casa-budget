@@ -3,10 +3,10 @@ import {
   addExpense,
   populateNewExpenseForm,
   handleNewExpenseForm,
-  loadExpenses,
 } from "./store/appSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllContentfulData } from "./services";
+import { Link } from "react-router-dom";
 import TextField from "./components/TextField/TextField";
 import "./App.css";
 
@@ -19,8 +19,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    document.title = "New Expense";
     const fetchData = async () => {
-      dispatch(loadExpenses());
       const content = await getAllContentfulData();
       console.log(content);
       dispatch(populateNewExpenseForm(content));
@@ -37,7 +37,9 @@ function App() {
       <div className="container">
         <div className="new-expense-header">
           <div>
-            <img src="/images/logo.png" alt="Casa Budget logo" />
+            <Link to="/">
+              <img src="/images/logo.png" alt="Casa Budget logo" />
+            </Link>
           </div>
           <h1>New Expense</h1>
           <span className="new-expense-date">

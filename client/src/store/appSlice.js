@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -7,7 +8,7 @@ const initialState = {
   textFieldFocus: "",
   serverError: "",
   // isLogged: JSON.parse(localStorage.getItem("isLogged")),
-  isLogged: false,
+  isLogged: true,
   newExpensesForm: {
     name: "",
     amount: "",
@@ -24,6 +25,7 @@ const initialState = {
   categories: [],
   workers: [],
   companies: [],
+  total: 0,
 };
 
 export const appSlice = createSlice({
@@ -36,6 +38,10 @@ export const appSlice = createSlice({
     },
     setLogin: (state, action) => {
       state.isLogged = action.payload;
+    },
+    setDashboardData: (state) => {
+      let amounts = state.expenses.map((expense) => expense.amount);
+      state.total = amounts.reduce((a, b) => a + b);
     },
     setServerError: (state, action) => {
       state.serverError = action.payload;
@@ -103,6 +109,7 @@ export const {
   focusTextField,
   selectSuggestion,
   setLogin,
+  setDashboardData,
   setServerError,
 } = appSlice.actions;
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./store/appSlice";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,6 +16,7 @@ const Login = () => {
   let from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
+    document.title = "Login";
     if (isLogged) {
       navigate(from, { replace: true });
     }
