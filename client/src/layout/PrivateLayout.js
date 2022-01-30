@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
 import { Navigate } from "react-router";
-import { loadExpenses, setDashboardData } from "../store/appSlice";
+import { loadInitialData } from "../store/appSlice";
 
 const PrivateRoute = () => {
   const isLogged = useSelector((state) => state.app.isLogged);
@@ -11,9 +11,7 @@ const PrivateRoute = () => {
 
   useEffect(() => {
     document.title = "Home";
-    dispatch(loadExpenses()).then(() => {
-      dispatch(setDashboardData());
-    });
+    dispatch(loadInitialData());
   }, [dispatch]);
 
   return isLogged ? (

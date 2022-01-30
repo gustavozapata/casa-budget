@@ -1,11 +1,6 @@
-import React, { useEffect, useState } from "react";
-import {
-  addExpense,
-  populateNewExpenseForm,
-  handleNewExpenseForm,
-} from "./store/appSlice";
+import React, { useState } from "react";
+import { addExpense, handleNewExpenseForm } from "./store/appSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllContentfulData } from "./services";
 import { Link } from "react-router-dom";
 import TextField from "./components/TextField/TextField";
 import "./App.css";
@@ -17,16 +12,6 @@ function App() {
   const rooms = useSelector((state) => state.app.rooms);
   const categories = useSelector((state) => state.app.categories);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    document.title = "New Expense";
-    const fetchData = async () => {
-      const content = await getAllContentfulData();
-      console.log(content);
-      dispatch(populateNewExpenseForm(content));
-    };
-    fetchData();
-  }, [dispatch]);
 
   const setFormField = (name, value) => {
     dispatch(handleNewExpenseForm({ name, value }));

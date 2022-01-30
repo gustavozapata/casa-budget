@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
+import { getAllContentfulData } from "../services";
 
 const initialState = {
   expenses: [],
@@ -64,7 +65,7 @@ export const appSlice = createSlice({
       state.newExpensesForm[action.payload.name] = action.payload.value;
       state.textFieldFocus = "";
     },
-    populateNewExpenseForm: (state, action) => {
+    setContent: (state, action) => {
       state.shops = action.payload.shops;
       state.rooms = action.payload.rooms;
       state.categories = action.payload.categories;
@@ -115,28 +116,13 @@ export const populateSuggestions = (state, action) => {
 export const {
   setExpenses,
   handleNewExpenseForm,
-  populateNewExpenseForm,
+  setContent,
   focusTextField,
   selectSuggestion,
   setLogin,
   setDashboardData,
   setServerError,
 } = appSlice.actions;
-
-export const addExpense = (expense) => async () => {
-  const newExpense = await axios.post(
-    `http://localhost:4000/expenses`,
-    { expense }
-    // { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
-  );
-  console.log(newExpense);
-};
-
-export const loadExpenses = () => async (dispatch) => {
-  const expenses = await axios.get(`http://localhost:4000/expenses`);
-  console.log(expenses.data.data);
-  dispatch(setExpenses(expenses.data.data));
-};
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -149,6 +135,34 @@ export const login = (email, password) => async (dispatch) => {
     console.log("Casa Budget Error", e.response);
     dispatch(setServerError(e.response.data.message));
   }
+};
+
+// on app launch and/or on refresh
+export const loadInitialData = () => async (dispatch) => {
+  await dispatch(loadExpenses());
+  await dispatch(loadContent());
+  await dispatch(setDashboardData());
+};
+
+export const loadExpenses = () => async (dispatch) => {
+  const expenses = await axios.get(`http://localhost:4000/expenses`);
+  console.log(expenses.data.data);
+  dispatch(setExpenses(expenses.data.data));
+};
+
+export const loadContent = () => async (dispatch) => {
+  const content = await getAllContentfulData();
+  console.log(content);
+  dispatch(setContent(content));
+};
+
+export const addExpense = (expense) => async () => {
+  const newExpense = await axios.post(
+    `http://localhost:4000/expenses`,
+    { expense }
+    // { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
+  );
+  console.log(newExpense);
 };
 
 export default appSlice.reducer;
