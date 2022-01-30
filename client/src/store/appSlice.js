@@ -9,7 +9,7 @@ const initialState = {
   textFieldFocus: "",
   serverError: "",
   // isLogged: JSON.parse(localStorage.getItem("isLogged")),
-  isLogged: true,
+  isLogged: false,
   newExpensesForm: {
     name: "",
     amount: "",
@@ -38,18 +38,17 @@ export const appSlice = createSlice({
     },
     setLogin: (state, action) => {
       state.isLogged = action.payload;
+      state.serverError = "";
+    },
+    logout: (state) => {
+      state.isLogged = false;
     },
     setDashboardData: (state) => {
-      let tiendas = state.expenses.map((expense) => expense.shop);
+      let shops = state.expenses.map((expense) => expense.shop);
+      let workers = state.expenses.map((expense) => expense.worker);
 
-      state.dashboardData.shops = tiendas
-        .filter((value, index, self) => self.indexOf(value) === index)
-        .map((shop) => ({
-          name: shop,
-          total: state.expenses
-            .filter((expense) => expense.shop === shop)
-            .reduce((acc, curr) => acc + curr.amount, 0),
-        }));
+      calculateCategoryTotal(state, shops, "shops", "shop");
+      calculateCategoryTotal(state, workers, "workers", "worker");
 
       let amounts = state.expenses.map((expense) => expense.amount);
       state.dashboardData.total = amounts.reduce((a, b) => a + b);
@@ -93,6 +92,17 @@ export const appSlice = createSlice({
   },
 });
 
+export const calculateCategoryTotal = (state, category, types, type) => {
+  return (state.dashboardData[types] = category
+    .filter((value, index, self) => self.indexOf(value) === index)
+    .map((element) => ({
+      name: element,
+      total: state.expenses
+        .filter((expense) => expense[type] === element)
+        .reduce((acc, curr) => acc + curr.amount, 0),
+    })));
+};
+
 export const populateSuggestions = (state, action) => {
   if (action.payload.isSearch) {
     // populate suggestions
@@ -122,6 +132,7 @@ export const {
   setLogin,
   setDashboardData,
   setServerError,
+  logout,
 } = appSlice.actions;
 
 export const login = (email, password) => async (dispatch) => {
