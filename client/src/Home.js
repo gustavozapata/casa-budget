@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Home = () => {
-  const total = useSelector((state) => state.app.total);
+  const dashboardData = useSelector((state) => state.app.dashboardData);
 
   return (
     <div className="home-page">
@@ -12,7 +12,15 @@ const Home = () => {
         <h1>Casa Budget</h1>
       </header>
       <h2>Total</h2>
-      <p>{total.toLocaleString()}</p>
+      <p>{dashboardData.total?.toLocaleString()}</p>
+      <div className="dashboard-shops">
+        {dashboardData.shops?.map((shop) => (
+          <div key={shop.name} className="dashboard-shop">
+            <p>{shop.name}</p>
+            <p>{shop.total.toLocaleString()}</p>
+          </div>
+        ))}
+      </div>
       <Link to="/expenses">Expenses</Link>
     </div>
   );

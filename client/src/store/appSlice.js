@@ -25,7 +25,7 @@ const initialState = {
   categories: [],
   workers: [],
   companies: [],
-  total: 0,
+  dashboardData: {},
 };
 
 export const appSlice = createSlice({
@@ -34,14 +34,24 @@ export const appSlice = createSlice({
   reducers: {
     setExpenses: (state, action) => {
       state.expenses = action.payload;
-      console.log(action.payload);
     },
     setLogin: (state, action) => {
       state.isLogged = action.payload;
     },
     setDashboardData: (state) => {
+      let tiendas = state.expenses.map((expense) => expense.shop);
+
+      state.dashboardData.shops = tiendas
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .map((shop) => ({
+          name: shop,
+          total: state.expenses
+            .filter((expense) => expense.shop === shop)
+            .reduce((acc, curr) => acc + curr.amount, 0),
+        }));
+
       let amounts = state.expenses.map((expense) => expense.amount);
-      state.total = amounts.reduce((a, b) => a + b);
+      state.dashboardData.total = amounts.reduce((a, b) => a + b);
     },
     setServerError: (state, action) => {
       state.serverError = action.payload;
