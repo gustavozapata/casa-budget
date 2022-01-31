@@ -1,6 +1,19 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getAllContentfulData } from "../services";
+import { serverUrl } from "../services/urls";
+
+const initialNewExpensesForm = {
+  name: "",
+  amount: "",
+  date: new Date().toISOString().slice(0, 10),
+  description: "",
+  worker: "",
+  company: "",
+  shop: "",
+  room: "",
+  category: [],
+};
 
 const initialState = {
   expenses: [],
@@ -10,22 +23,14 @@ const initialState = {
   isLogged: JSON.parse(localStorage.getItem("isLogged")),
   // isLogged: false,
   newExpensesForm: {
-    name: "",
-    amount: "",
-    date: new Date().toISOString().slice(0, 10),
-    description: "",
-    worker: "",
-    company: "",
-    shop: "",
-    room: "",
-    category: [],
+    ...initialNewExpensesForm,
   },
   shops: [],
   rooms: [],
   categories: [],
   workers: [],
   companies: [],
-  dashboardData: {},
+  dashboardData: { total: 0, previousTotal: 0 },
 };
 
 export const appSlice = createSlice({
@@ -44,7 +49,13 @@ export const appSlice = createSlice({
       state.isLogged = false;
       localStorage.setItem("isLogged", JSON.stringify(false));
     },
+    cleanNewExpenseForm: (state) => {
+      state.newExpensesForm = {
+        ...initialNewExpensesForm,
+      };
+    },
     setDashboardData: (state) => {
+      state.dashboardData.previousTotal = state.dashboardData.total || 0;
       let shops = state.expenses.map((expense) => expense.shop);
       let workers = state.expenses.map((expense) => expense.worker);
 
@@ -134,11 +145,12 @@ export const {
   setDashboardData,
   setServerError,
   logout,
+  cleanNewExpenseForm,
 } = appSlice.actions;
 
 export const login = (email, password) => async (dispatch) => {
   try {
-    const user = await axios.post(`http://localhost:4000/login`, {
+    const user = await axios.post(`${serverUrl}/login`, {
       email,
       password,
     });
@@ -154,10 +166,11 @@ export const loadInitialData = () => async (dispatch) => {
   await dispatch(loadExpenses());
   await dispatch(loadContent());
   await dispatch(setDashboardData());
+  await dispatch(cleanNewExpenseForm());
 };
 
 export const loadExpenses = () => async (dispatch) => {
-  const expenses = await axios.get(`http://localhost:4000/expenses`);
+  const expenses = await axios.get(`${serverUrl}/expenses`);
   console.log(expenses.data.data);
   dispatch(setExpenses(expenses.data.data));
 };
@@ -170,11 +183,10 @@ export const loadContent = () => async (dispatch) => {
 
 export const addExpense = (expense) => async () => {
   await axios.post(
-    `http://localhost:4000/expenses`,
+    `${serverUrl}/expenses`,
     { expense }
     // { headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` } }
   );
-  return true;
 };
 
 export default appSlice.reducer;

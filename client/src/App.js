@@ -23,10 +23,10 @@ function App() {
   };
 
   const createExpense = () => {
-    if (dispatch(addExpense(newExpensesForm))) {
+    dispatch(addExpense(newExpensesForm)).then(() => {
       navigate("/");
       dispatch(loadInitialData());
-    }
+    });
   };
 
   return (
