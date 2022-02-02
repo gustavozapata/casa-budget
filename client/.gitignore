@@ -6,6 +6,9 @@
 .pnp.js
 .env
 
+# client
+/src/services/urls.js
+
 # testing
 /coverage
 

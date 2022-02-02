@@ -39,11 +39,15 @@
   margin: 20px auto;
 }
 .dashboard-shops {
-  display: flex;
+  /* display: flex; */
   align-items: center;
   justify-content: space-between;
   /* border: 1px solid red; */
-  margin: 20px auto 10px auto;
+  margin: 20px auto;
+}
+.dashboard-shops div {
+  display: inline-block;
+  margin: 10px 20px;
 }
 .dashboard-workers div {
   display: inline-block;

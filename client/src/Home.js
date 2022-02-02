@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "./store/appSlice";
@@ -7,8 +7,26 @@ import "./Home.css";
 const Home = () => {
   const dashboardData = useSelector((state) => state.app.dashboardData);
   const shops = useSelector((state) => state.app.shops);
-  const workers = useSelector((state) => state.app.workers);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    // TODO: improve it!
+    function animateValue(obj, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        obj.innerHTML =
+          "£" + Math.floor(progress * (end - start) + start).toLocaleString();
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+    const obj = document.getElementById("value");
+    animateValue(obj, dashboardData.previousTotal, dashboardData.total, 800);
+  }, [dashboardData]);
 
   return (
     <div className="Home">
@@ -22,13 +40,16 @@ const Home = () => {
       </header>
       <main>
         <h2>Total</h2>
-        <p className="total-amount">£{dashboardData.total?.toLocaleString()}</p>
+        <p className="total-amount" id="value">
+          £{dashboardData.total?.toLocaleString()}
+        </p>
         <div className="dashboard-shops">
           {dashboardData.shops?.map((shop) => (
             <div key={shop.name} className="dashboard-shop">
               <img
                 src={
-                  shops.filter((element) => element.name === shop.name)[0].image
+                  shops.filter((element) => element.name === shop.name)[0]
+                    ?.image
                 }
                 alt={shop.name}
                 key={shop.name}
