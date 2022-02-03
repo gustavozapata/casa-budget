@@ -7,6 +7,7 @@ import "./Home.css";
 const Home = () => {
   const dashboardData = useSelector((state) => state.app.dashboardData);
   const shops = useSelector((state) => state.app.shops);
+  const serverError = useSelector((state) => state.app.serverError);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,6 +34,7 @@ const Home = () => {
       <header>
         <img src="/images/logo.png" alt="logo login" />
         <h1>Casa Budget</h1>
+        <p>{serverError}</p>
         <span className="nav-link">
           <Link to="/expenses">Expenses</Link>
           <span onClick={() => dispatch(logout())}>Logout</span>
