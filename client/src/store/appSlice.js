@@ -163,16 +163,23 @@ export const login = (email, password) => async (dispatch) => {
 
 // on app launch and/or on refresh
 export const loadInitialData = () => async (dispatch) => {
-  await dispatch(loadExpenses());
-  await dispatch(loadContent());
-  await dispatch(setDashboardData());
-  await dispatch(cleanNewExpenseForm());
+  console.log("load initial data");
+  dispatch(loadContent());
+  dispatch(loadExpenses()).then(() => {
+    dispatch(setDashboardData());
+  });
+  dispatch(cleanNewExpenseForm());
 };
 
 export const loadExpenses = () => async (dispatch) => {
-  const expenses = await axios.get(`${serverUrl}/expenses`);
-  console.log(expenses.data.data);
-  dispatch(setExpenses(expenses.data.data));
+  try {
+    const expenses = await axios.get(`${serverUrl}/expenses`);
+    console.log(expenses.data.data);
+    dispatch(setExpenses(expenses.data.data));
+  } catch (e) {
+    console.log("Casa Budget Error", e.response);
+    dispatch(setServerError("Error loading expenses"));
+  }
 };
 
 export const loadContent = () => async (dispatch) => {
