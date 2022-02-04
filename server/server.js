@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const app = require("./app");
 
 // const DB = process.env.DB_URI.replace("<PASSWORD>", process.env.DB_PASSWORD);
+
+// Local DB
 const DB = process.env.DB_URI_LOCAL
 
 mongoose
