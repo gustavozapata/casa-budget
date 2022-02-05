@@ -9,7 +9,6 @@ exports.getExpenses = async (req, res) => {
 };
 
 exports.addExpense = async (req, res) => {
-  console.log(req.body);
   const expense = await Expenses.create(req.body.expense);
   res.status(201).json({
     status: "success",
