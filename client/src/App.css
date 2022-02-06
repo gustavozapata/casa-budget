@@ -217,3 +217,11 @@ h1 {
   text-align: center;
   font-size: 0.8em;
 }
+.back-arrow {
+  cursor: pointer;
+}
+.back-arrow img {
+  width: 22px;
+  vertical-align: middle;
+  margin-bottom: 3px;
+}

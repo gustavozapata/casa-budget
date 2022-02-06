@@ -17,8 +17,7 @@ const Home = () => {
       const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        obj.innerHTML =
-          "£" + Math.floor(progress * (end - start) + start).toLocaleString();
+        obj.innerHTML = "£" + (progress * (end - start) + start).toFixed(2);
         if (progress < 1) {
           window.requestAnimationFrame(step);
         }

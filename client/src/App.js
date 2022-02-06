@@ -49,6 +49,10 @@ function App() {
             onChange={(e) => setFormField("date", e.target.value)}
           />
         </div>
+        <span className="back-arrow" onClick={(e) => navigate("/")}>
+          <img src="/images/back-arrow.png" alt="back icon" />
+          Back
+        </span>
         <div className="form">
           <TextField
             label="Expense"
