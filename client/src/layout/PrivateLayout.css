@@ -1,0 +1,9 @@
+.PrivateLayout {
+  position: relative;
+  padding: 15px 30px;
+  max-width: 350px;
+  /* display: flex; */
+  margin: 0 auto;
+  /* text-align: center; */
+  justify-content: center;
+}

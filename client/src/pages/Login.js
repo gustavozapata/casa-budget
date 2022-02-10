@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "./store/appSlice";
+import { login } from "../store/appSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
 import { Navigate } from "react-router";
 import { loadInitialData } from "../store/appSlice";
+import "./PrivateLayout.css";
 
 const PrivateRoute = () => {
   const isLogged = useSelector((state) => state.app.isLogged);

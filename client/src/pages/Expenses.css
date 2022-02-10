@@ -1,0 +1,31 @@
+.expenses-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.expenses-header > * {
+  flex-basis: 10%;
+  /* text-align: right; */
+}
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.list-header span {
+  font-weight: 500;
+}
+.expense-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgb(172, 172, 172);
+}
+.expense-item > span {
+  flex-basis: 30%;
+  text-align: center;
+}
+.expense-item > span:first-child {
+  text-align: left;
+}
