@@ -1,14 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { logout } from "./store/appSlice";
+import { useSelector } from "react-redux";
+import Header from "../layout/Header";
 import "./Home.css";
 
 const Home = () => {
   const dashboardData = useSelector((state) => state.app.dashboardData);
   const shops = useSelector((state) => state.app.shops);
-  const serverError = useSelector((state) => state.app.serverError);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     // TODO: improve it!
@@ -17,8 +14,7 @@ const Home = () => {
       const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        obj.innerHTML =
-          "£" + Math.floor(progress * (end - start) + start).toLocaleString();
+        obj.innerHTML = "£" + (progress * (end - start) + start).toFixed(2);
         if (progress < 1) {
           window.requestAnimationFrame(step);
         }
@@ -31,15 +27,7 @@ const Home = () => {
 
   return (
     <div className="Home">
-      <header>
-        <img src="/images/logo.png" alt="logo login" />
-        <h1>Casa Budget</h1>
-        <p>{serverError}</p>
-        <span className="nav-link">
-          <Link to="/expenses">Expenses</Link>
-          <span onClick={() => dispatch(logout())}>Logout</span>
-        </span>
-      </header>
+      <Header />
       <main>
         <h2>Total</h2>
         <p className="total-amount" id="value">

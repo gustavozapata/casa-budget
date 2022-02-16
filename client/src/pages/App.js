@@ -3,10 +3,10 @@ import {
   addExpense,
   handleNewExpenseForm,
   loadInitialData,
-} from "./store/appSlice";
+} from "../store/appSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import TextField from "./components/TextField/TextField";
+import TextField from "../components/TextField/TextField";
 import "./App.css";
 
 function App() {
@@ -49,6 +49,10 @@ function App() {
             onChange={(e) => setFormField("date", e.target.value)}
           />
         </div>
+        <span className="back-arrow" onClick={(e) => navigate("/expenses")}>
+          <img src="/images/back-arrow.png" alt="back icon" />
+          Back
+        </span>
         <div className="form">
           <TextField
             label="Expense"

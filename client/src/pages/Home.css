@@ -1,4 +1,8 @@
 .Home {
+}
+.Home main {
+  /* margin: 0px auto;
+  width: 80%; */
   text-align: center;
   display: flex;
   justify-content: center;
@@ -9,13 +13,10 @@
   max-width: 350px;
   margin: 10px auto;
 }
-.Home main {
-  margin: 30px auto;
-  width: 80%;
-}
 .nav-link {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .nav-link > * {
   text-decoration: none;

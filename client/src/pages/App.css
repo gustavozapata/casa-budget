@@ -4,7 +4,7 @@
 }
 .container {
   position: relative;
-  padding: 15px 30px;
+  padding: 0 30px 15px 30px;
   max-width: 350px;
 }
 .shop-image {
@@ -216,4 +216,12 @@ h1 {
 .error-msg {
   text-align: center;
   font-size: 0.8em;
+}
+.back-arrow {
+  cursor: pointer;
+}
+.back-arrow img {
+  width: 22px;
+  vertical-align: middle;
+  margin-bottom: 3px;
 }
