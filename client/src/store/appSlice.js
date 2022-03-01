@@ -6,6 +6,7 @@ import { serverUrl } from "../services/urls";
 const initialNewExpensesForm = {
   name: "",
   amount: "",
+  type: "",
   date: new Date().toISOString().slice(0, 10),
   description: "",
   worker: "",
@@ -25,6 +26,7 @@ const initialState = {
   newExpensesForm: {
     ...initialNewExpensesForm,
   },
+  types: [],
   shops: [],
   rooms: [],
   categories: [],
@@ -56,12 +58,15 @@ export const appSlice = createSlice({
     },
     setDashboardData: (state) => {
       state.dashboardData.previousTotal = state.dashboardData.total || 0;
+      let types = state.expenses.map((expense) => expense.type);
       let shops = state.expenses.map((expense) => expense.shop);
       let workers = state.expenses.map((expense) => expense.worker);
 
+      calculateCategoryTotal(state, types, "types", "type");
       calculateCategoryTotal(state, shops, "shops", "shop");
       calculateCategoryTotal(state, workers, "workers", "worker");
 
+      // Calculate total from all amounts
       let amounts = state.expenses.map((expense) => expense.amount);
       state.dashboardData.total = amounts.reduce((a, b) => a + b);
     },
@@ -77,6 +82,8 @@ export const appSlice = createSlice({
       state.textFieldFocus = "";
     },
     setContent: (state, action) => {
+      console.log(action.payload);
+      state.types = action.payload.types;
       state.shops = action.payload.shops;
       state.rooms = action.payload.rooms;
       state.categories = action.payload.categories;

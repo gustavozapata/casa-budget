@@ -1,11 +1,7 @@
 .expenses-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-.expenses-header > * {
-  flex-basis: 10%;
-  /* text-align: right; */
+  justify-content: center;
 }
 .list-header {
   display: flex;

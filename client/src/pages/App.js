@@ -12,6 +12,7 @@ import "./App.css";
 function App() {
   const [showKeyboard, setShowKeyboard] = useState(false);
   const newExpensesForm = useSelector((state) => state.app.newExpensesForm);
+  const types = useSelector((state) => state.app.types);
   const shops = useSelector((state) => state.app.shops);
   const rooms = useSelector((state) => state.app.rooms);
   const categories = useSelector((state) => state.app.categories);
@@ -51,7 +52,7 @@ function App() {
         </div>
         <span className="back-arrow" onClick={(e) => navigate("/expenses")}>
           <img src="/images/back-arrow.png" alt="back icon" />
-          Back
+          Expenses
         </span>
         <div className="form">
           <TextField
@@ -76,6 +77,20 @@ function App() {
                 </span>
               </span>
             </div>
+          </div>
+
+          <div className="types">
+            {types.map((type) => (
+              <p
+                key={type.name}
+                className={`${
+                  newExpensesForm.type === type.name && "type-selected"
+                }`}
+                onClick={() => setFormField("type", type.name)}
+              >
+                {type.name}
+              </p>
+            ))}
           </div>
 
           <p className="label">Shop</p>
@@ -105,6 +120,7 @@ function App() {
                 {room.name}
               </span>
             ))}
+            <span className="new-btn">+</span>
           </div>
           <p className="label">
             Categories <span className="cat-multiple">(multiple)</span>
@@ -122,6 +138,7 @@ function App() {
                 {category.name}
               </span>
             ))}
+            <span className="new-btn">+</span>
           </div>
           <TextField
             label="Worker"

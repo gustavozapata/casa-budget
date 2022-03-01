@@ -1,6 +1,5 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Header from "../layout/Header";
 import "./Expenses.css";
 
@@ -11,9 +10,7 @@ const Expenses = () => {
     <div className="Expenses">
       <Header />
       <div className="expenses-header">
-        <span></span>
         <h1>Expenses</h1>
-        <Link to="/add-expense">New</Link>
       </div>
       <div className="expenses-main">
         <div className="list-header">

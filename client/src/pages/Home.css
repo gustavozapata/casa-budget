@@ -28,8 +28,17 @@
   margin-bottom: 0;
   font-size: 1.1em;
 }
+.dashboard-types {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.dashboard-types p {
+  margin: 10px;
+}
 .dashboard-shop img {
-  width: 45px;
+  width: 40px;
   border: 1px solid black;
   border-radius: 50%;
 }
@@ -54,9 +63,13 @@
   display: inline-block;
   margin: 0 20px;
 }
+.dashboard-workers p {
+  margin: 10px 0;
+}
 .workers-name {
   font-weight: 600;
   margin-top: 0;
+  max-width: 70px;
 }
 .total-amount {
   font-size: 2.5em;
