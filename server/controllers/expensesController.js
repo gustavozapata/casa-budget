@@ -1,7 +1,7 @@
 const Expenses = require("../models/expensesModel");
 
 exports.getExpenses = async (req, res) => {
-  const expenses = await Expenses.find({});
+  const expenses = await Expenses.find({}).sort({date: -1});
   res.status(200).json({
     status: "success",
     data: expenses,

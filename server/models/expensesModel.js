@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const expensesSchema = new Schema({
   name: String,
   description: String,
+  type: String,
   shop: String,
   worker: String,
   company: String,
