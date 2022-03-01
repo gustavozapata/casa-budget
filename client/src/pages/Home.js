@@ -33,29 +33,47 @@ const Home = () => {
         <p className="total-amount" id="value">
           £{dashboardData.total?.toLocaleString()}
         </p>
-        <div className="dashboard-shops">
-          {dashboardData.shops?.map((shop) => (
-            <div key={shop.name} className="dashboard-shop">
-              <img
-                src={
-                  shops.filter((element) => element.name === shop.name)[0]
-                    ?.image
-                }
-                alt={shop.name}
-                key={shop.name}
-              />
-              <p>{shop.total.toLocaleString()}</p>
+
+        <div className="dashboard-types">
+          {dashboardData.types?.map((type) => (
+            <div key={type.name} className="dashboard-type">
+              <p className="workers-name">{type.name}</p>
+              <p>{type.total.toLocaleString()}</p>
             </div>
           ))}
         </div>
 
+        <div className="dashboard-shops">
+          {dashboardData.shops?.map((shop) => {
+            return (
+              shop.name !== "" && (
+                <div key={shop.name} className="dashboard-shop">
+                  <img
+                    src={
+                      shops.filter((element) => element.name === shop.name)[0]
+                        ?.image
+                    }
+                    alt={shop.name}
+                    key={shop.name}
+                  />
+                  <p>{shop.total.toLocaleString()}</p>
+                </div>
+              )
+            );
+          })}
+        </div>
+
         <div className="dashboard-workers">
-          {dashboardData.workers?.map((worker) => (
-            <div key={worker.name} className="dashboard-worker">
-              <p className="workers-name">{worker.name}</p>
-              <p>{worker.total.toLocaleString()}</p>
-            </div>
-          ))}
+          {dashboardData.workers?.map((worker) => {
+            return (
+              worker.name !== "" && (
+                <div key={worker.name} className="dashboard-worker">
+                  <p className="workers-name">{worker.name}</p>
+                  <p>{worker.total.toLocaleString()}</p>
+                </div>
+              )
+            );
+          })}
         </div>
       </main>
     </div>

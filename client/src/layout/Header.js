@@ -18,6 +18,7 @@ const Header = () => {
             <img id="logo" src="/images/logo.png" alt="logo login" />
           </Link>
           <Link to="/expenses">Expenses</Link>
+          <Link to="/add-expense">New</Link>
           <span className="logout" onClick={() => dispatch(logout())}>
             Logout
           </span>

@@ -1,6 +1,14 @@
 export const getAllContentfulData = async () => {
   const endpoint = `https://graphql.contentful.com/content/v1/spaces/${process.env.REACT_APP_CONTENTFUL_SPACE_ID}/environments/casa-budget`;
   const query = `{
+    typeCollection {
+      items {
+        sys {
+          id
+        }
+        name
+      }
+    }
     shopCollection {
       items {
         sys {
@@ -49,6 +57,10 @@ export const getAllContentfulData = async () => {
 
 const parseContentfulItems = (data) => {
   let content = {
+    types: data.typeCollection.items.map((type) => ({
+      id: type.sys.id,
+      name: type.name,
+    })),
     shops: data.shopCollection.items.map((shop) => ({
       id: shop.sys.id,
       name: shop.name,
