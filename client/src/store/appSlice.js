@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getAllContentfulData } from "../services";
 import { serverUrl } from "../services/urls";
