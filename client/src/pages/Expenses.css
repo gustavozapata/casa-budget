@@ -10,6 +10,7 @@
 }
 .list-header span {
   font-weight: 500;
+  cursor: pointer;
 }
 .expense-item {
   display: flex;
@@ -24,4 +25,8 @@
 }
 .expense-item > span:first-child {
   text-align: left;
+}
+.list-header img {
+  width: 10px;
+  vertical-align: middle;
 }

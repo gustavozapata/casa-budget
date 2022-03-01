@@ -81,6 +81,17 @@ export const appSlice = createSlice({
       state.newExpensesForm[action.payload.name] = action.payload.value;
       state.textFieldFocus = "";
     },
+    sortExpensesBy: (state, action) => {
+      state.expenses.sort((a, b) => {
+        if (a[action.payload] > b[action.payload]) {
+          return -1;
+        }
+        if (a[action.payload] < b[action.payload]) {
+          return 1;
+        }
+        return 0;
+      });
+    },
     setContent: (state, action) => {
       console.log(action.payload);
       state.types = action.payload.types;
@@ -152,6 +163,7 @@ export const {
   setDashboardData,
   setServerError,
   logout,
+  sortExpensesBy,
   cleanNewExpenseForm,
 } = appSlice.actions;
 
