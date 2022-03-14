@@ -30,14 +30,18 @@ const Home = () => {
       <Header />
       <main>
         <h2>Total</h2>
-        <p className="total-amount" id="value">
+        <p
+          className="total-amount"
+          id="value"
+          onClick={() => window.navigator.vibrate(500)}
+        >
           £{dashboardData.total?.toLocaleString()}
         </p>
 
         <div className="dashboard-types">
           {dashboardData.types?.map((type) => (
             <div key={type.name} className="dashboard-type">
-              <p className="workers-name">{type.name}</p>
+              <p className="workers-name">{type.name}s</p>
               <p>{type.total.toLocaleString()}</p>
             </div>
           ))}
