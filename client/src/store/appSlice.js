@@ -61,10 +61,12 @@ export const appSlice = createSlice({
       let types = state.expenses.map((expense) => expense.type);
       let shops = state.expenses.map((expense) => expense.shop);
       let workers = state.expenses.map((expense) => expense.worker);
+      let rooms = state.expenses.map((expense) => expense.room);
 
       calculateCategoryTotal(state, types, "types", "type");
       calculateCategoryTotal(state, shops, "shops", "shop");
       calculateCategoryTotal(state, workers, "workers", "worker");
+      calculateCategoryTotal(state, rooms, "rooms", "room");
 
       // Calculate total from all amounts
       let amounts = state.expenses.map((expense) => expense.amount);

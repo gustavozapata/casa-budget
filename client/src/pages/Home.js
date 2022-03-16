@@ -79,6 +79,19 @@ const Home = () => {
             );
           })}
         </div>
+
+        <div className="dashboard-rooms">
+          {dashboardData.rooms?.slice(0, 4).map((room) => {
+            return (
+              room.name !== "" && (
+                <div key={room.name} className="dashboard-room">
+                  <p className="rooms-name">{room.name}</p>
+                  <p>{room.total.toLocaleString()}</p>
+                </div>
+              )
+            );
+          })}
+        </div>
       </main>
     </div>
   );

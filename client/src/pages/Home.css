@@ -66,7 +66,18 @@
 .dashboard-workers p {
   margin: 10px 0;
 }
-.workers-name {
+.dashboard-rooms {
+  margin: 25px 0;
+}
+.dashboard-rooms div {
+  display: inline-block;
+  margin: 0 20px;
+}
+.dashboard-rooms p {
+  margin: 10px 0;
+}
+.workers-name,
+.rooms-name {
   font-weight: 600;
   margin-top: 0;
   max-width: 70px;
