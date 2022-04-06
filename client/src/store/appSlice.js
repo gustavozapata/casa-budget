@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getAllContentfulData } from "../services";
-import { serverUrl } from "../services/urls";
+import { serverLocal, serverUrl } from "../services/urls";
 
 const initialNewExpensesForm = {
   name: "",
@@ -198,8 +198,14 @@ export const loadExpenses = () => async (dispatch) => {
     console.log(expenses.data.data);
     dispatch(setExpenses(expenses.data.data));
   } catch (e) {
+    // TODO: use local server if the external fails
+    // try {
+    //   const expensesLocal = await axios.get(`${serverLocal}/expenses`);
+    //   dispatch(setExpenses(expensesLocal.data.data));
+    // } catch (e) {
     console.log("Casa Budget Error", e.response);
     dispatch(setServerError("Error loading expenses"));
+    // }
   }
 };
 
