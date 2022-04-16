@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getAllContentfulData } from "../services";
-import { serverLocal, serverUrl } from "../services/urls";
+import { serverUrl } from "../services/urls";
 
 const initialNewExpensesForm = {
   name: "",
