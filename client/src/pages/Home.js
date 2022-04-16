@@ -37,7 +37,13 @@ const Home = () => {
         >
           £{dashboardData.total?.toLocaleString()}
         </p>
-
+        <p className="no-furniture">
+          no furniture: £
+          {(
+            dashboardData.total -
+            dashboardData.types?.find((type) => type.name === "Furniture").total
+          ).toLocaleString()}
+        </p>
         <div className="dashboard-types">
           {dashboardData.types?.map((type) => (
             <div key={type.name} className="dashboard-type">
@@ -98,7 +104,7 @@ const Home = () => {
       <ul>
         <li>Jobs: renovations, extensions</li>
         <li>Furniture: sofa, desks, beds</li>
-        <li>Tools and materials</li>
+        <li>Tools and materials: bulbs, doors</li>
       </ul>
     </div>
   );
