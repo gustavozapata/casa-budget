@@ -55,17 +55,17 @@ const Home = () => {
 
         <div className="dashboard-shops">
           {dashboardData.shops?.map((shop) => {
+            const shopImage = shops.filter(
+              (element) => element.name === shop.name
+            )[0]?.image;
             return (
               shop.name !== "" && (
                 <div key={shop.name} className="dashboard-shop">
-                  <img
-                    src={
-                      shops.filter((element) => element.name === shop.name)[0]
-                        ?.image
-                    }
-                    alt={shop.name}
-                    key={shop.name}
-                  />
+                  {shopImage ? (
+                    <img src={shopImage} alt={shop.name} />
+                  ) : (
+                    <span>{shop.name}</span>
+                  )}
                   <p>{shop.total.toLocaleString()}</p>
                 </div>
               )
