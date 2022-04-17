@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getAllContentfulData } from "../services";
 import { serverUrl } from "../services/urls";
@@ -61,10 +61,12 @@ export const appSlice = createSlice({
       let types = state.expenses.map((expense) => expense.type);
       let shops = state.expenses.map((expense) => expense.shop);
       let workers = state.expenses.map((expense) => expense.worker);
+      let rooms = state.expenses.map((expense) => expense.room);
 
       calculateCategoryTotal(state, types, "types", "type");
       calculateCategoryTotal(state, shops, "shops", "shop");
       calculateCategoryTotal(state, workers, "workers", "worker");
+      calculateCategoryTotal(state, rooms, "rooms", "room");
 
       // Calculate total from all amounts
       let amounts = state.expenses.map((expense) => expense.amount);
@@ -80,6 +82,17 @@ export const appSlice = createSlice({
     selectSuggestion: (state, action) => {
       state.newExpensesForm[action.payload.name] = action.payload.value;
       state.textFieldFocus = "";
+    },
+    sortExpensesBy: (state, action) => {
+      state.expenses.sort((a, b) => {
+        if (a[action.payload] > b[action.payload]) {
+          return -1;
+        }
+        if (a[action.payload] < b[action.payload]) {
+          return 1;
+        }
+        return 0;
+      });
     },
     setContent: (state, action) => {
       console.log(action.payload);
@@ -152,6 +165,7 @@ export const {
   setDashboardData,
   setServerError,
   logout,
+  sortExpensesBy,
   cleanNewExpenseForm,
 } = appSlice.actions;
 
@@ -184,8 +198,14 @@ export const loadExpenses = () => async (dispatch) => {
     console.log(expenses.data.data);
     dispatch(setExpenses(expenses.data.data));
   } catch (e) {
+    // TODO: use local server if the external fails
+    // try {
+    //   const expensesLocal = await axios.get(`${serverLocal}/expenses`);
+    //   dispatch(setExpenses(expensesLocal.data.data));
+    // } catch (e) {
     console.log("Casa Budget Error", e.response);
     dispatch(setServerError("Error loading expenses"));
+    // }
   }
 };
 

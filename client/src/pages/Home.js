@@ -30,14 +30,24 @@ const Home = () => {
       <Header />
       <main>
         <h2>Total</h2>
-        <p className="total-amount" id="value">
+        <p
+          className="total-amount"
+          id="value"
+          onClick={() => window.navigator.vibrate(500)}
+        >
           £{dashboardData.total?.toLocaleString()}
         </p>
-
+        <p className="no-furniture">
+          no furniture: £
+          {(
+            dashboardData.total -
+            dashboardData.types?.find((type) => type.name === "Furniture").total
+          ).toLocaleString()}
+        </p>
         <div className="dashboard-types">
           {dashboardData.types?.map((type) => (
             <div key={type.name} className="dashboard-type">
-              <p className="workers-name">{type.name}</p>
+              <p className="workers-name">{type.name}s</p>
               <p>{type.total.toLocaleString()}</p>
             </div>
           ))}
@@ -45,17 +55,17 @@ const Home = () => {
 
         <div className="dashboard-shops">
           {dashboardData.shops?.map((shop) => {
+            const shopImage = shops.filter(
+              (element) => element.name === shop.name
+            )[0]?.image;
             return (
               shop.name !== "" && (
                 <div key={shop.name} className="dashboard-shop">
-                  <img
-                    src={
-                      shops.filter((element) => element.name === shop.name)[0]
-                        ?.image
-                    }
-                    alt={shop.name}
-                    key={shop.name}
-                  />
+                  {shopImage ? (
+                    <img src={shopImage} alt={shop.name} />
+                  ) : (
+                    <span>{shop.name}</span>
+                  )}
                   <p>{shop.total.toLocaleString()}</p>
                 </div>
               )
@@ -75,7 +85,27 @@ const Home = () => {
             );
           })}
         </div>
+
+        <div className="dashboard-rooms">
+          {dashboardData.rooms?.slice(0, 4).map((room) => {
+            return (
+              room.name !== "" && (
+                <div key={room.name} className="dashboard-room">
+                  <p className="rooms-name">{room.name}</p>
+                  <p>{room.total.toLocaleString()}</p>
+                </div>
+              )
+            );
+          })}
+        </div>
       </main>
+      <hr />
+      <p>What to include:</p>
+      <ul>
+        <li>Jobs: renovations, extensions</li>
+        <li>Furniture: sofa, desks, beds</li>
+        <li>Tools and materials: bulbs, doors</li>
+      </ul>
     </div>
   );
 };

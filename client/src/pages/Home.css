@@ -1,8 +1,4 @@
-.Home {
-}
 .Home main {
-  /* margin: 0px auto;
-  width: 80%; */
   text-align: center;
   display: flex;
   justify-content: center;
@@ -32,7 +28,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 .dashboard-types p {
   margin: 10px;
@@ -66,7 +62,18 @@
 .dashboard-workers p {
   margin: 10px 0;
 }
-.workers-name {
+.dashboard-rooms {
+  margin: 25px 0;
+}
+.dashboard-rooms div {
+  display: inline-block;
+  margin: 0 20px;
+}
+.dashboard-rooms p {
+  margin: 10px 0;
+}
+.workers-name,
+.rooms-name {
   font-weight: 600;
   margin-top: 0;
   max-width: 70px;
@@ -75,4 +82,7 @@
   font-size: 2.5em;
   font-weight: 500;
   margin: 2px auto;
+}
+.no-furniture {
+  margin: 0;
 }

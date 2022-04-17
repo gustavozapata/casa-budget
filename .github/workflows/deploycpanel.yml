@@ -1,0 +1,34 @@
+on:
+  push:
+    branches:
+      - main
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 12
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: "12"
+
+      - name: 🔨 Build Project
+        run: |
+          cd client
+          npm install
+          npm run build
+        env:
+          REACT_APP_CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE }}
+          REACT_APP_CONTENTFUL_CDA_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ftp.gustavozapata.me
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: client/build/
