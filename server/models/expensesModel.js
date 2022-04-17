@@ -9,6 +9,7 @@ const expensesSchema = new Schema({
   worker: String,
   company: String,
   room: String,
+  job: String,
   category: [String],
   amount: {
     type: Number,
