@@ -93,6 +93,14 @@ function App() {
             ))}
           </div>
 
+          <TextField
+            label="Job"
+            name="job"
+            type="text"
+            isSearch={true}
+            value={newExpensesForm.job}
+          />
+
           <p className="label">Shop</p>
           <div className="shops">
             {shops.map((shop) => (

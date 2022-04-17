@@ -67,7 +67,7 @@ h1 {
 }
 .types {
   display: flex;
-  margin-top: 20px;
+  margin: 20px 0;
   justify-content: space-between;
 }
 .rooms {

@@ -13,6 +13,7 @@ const initialNewExpensesForm = {
   company: "",
   shop: "",
   room: "",
+  job: "",
   category: [],
 };
 
@@ -136,6 +137,7 @@ export const calculateCategoryTotal = (state, category, types, type) => {
 };
 
 export const populateSuggestions = (state, action) => {
+  console.log(action.payload);
   if (action.payload.isSearch) {
     // populate suggestions
     state.suggestions = state.expenses
