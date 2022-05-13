@@ -86,3 +86,8 @@
 .no-furniture {
   margin: 0;
 }
+.separator {
+  height: 1px;
+  width: 100%;
+  background-color: #b6b6b6;
+}

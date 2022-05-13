@@ -53,6 +53,8 @@ const Home = () => {
           ))}
         </div>
 
+        <div className="separator"></div>
+
         <div className="dashboard-shops">
           {dashboardData.shops?.map((shop) => {
             const shopImage = shops.filter(
@@ -73,6 +75,8 @@ const Home = () => {
           })}
         </div>
 
+        <div className="separator"></div>
+
         <div className="dashboard-workers">
           {dashboardData.workers?.map((worker) => {
             return (
@@ -85,6 +89,8 @@ const Home = () => {
             );
           })}
         </div>
+
+        <div className="separator"></div>
 
         <div className="dashboard-rooms">
           {dashboardData.rooms?.slice(0, 4).map((room) => {
