@@ -186,7 +186,6 @@ export const login = (email, password) => async (dispatch) => {
 
 // on app launch and/or on refresh
 export const loadInitialData = () => async (dispatch) => {
-  console.log("load initial data");
   dispatch(loadContent());
   dispatch(loadExpenses()).then(() => {
     dispatch(setDashboardData());
