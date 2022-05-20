@@ -105,13 +105,6 @@ const Home = () => {
           })}
         </div>
       </main>
-      <hr />
-      <p>What to include:</p>
-      <ul>
-        <li>Jobs: renovations, extensions</li>
-        <li>Furniture: sofa, desks, beds</li>
-        <li>Tools and materials: bulbs, doors</li>
-      </ul>
     </div>
   );
 };
