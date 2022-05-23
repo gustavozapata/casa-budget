@@ -8,7 +8,7 @@ const Home = () => {
   const shops = useSelector((state) => state.app.shops);
 
   useEffect(() => {
-    // TODO: improve it!
+    // TODO: improve this by slowing down the number switching
     function animateValue(obj, start, end, duration) {
       let startTimestamp = null;
       const step = (timestamp) => {
