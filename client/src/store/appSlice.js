@@ -63,11 +63,13 @@ export const appSlice = createSlice({
       let shops = state.expenses.map((expense) => expense.shop);
       let workers = state.expenses.map((expense) => expense.worker);
       let rooms = state.expenses.map((expense) => expense.room);
+      let jobs = state.expenses.map((expense) => expense.job);
 
       calculateCategoryTotal(state, types, "types", "type");
       calculateCategoryTotal(state, shops, "shops", "shop");
       calculateCategoryTotal(state, workers, "workers", "worker");
       calculateCategoryTotal(state, rooms, "rooms", "room");
+      calculateCategoryTotal(state, jobs, "jobs", "job");
 
       // Calculate total from all amounts
       let amounts = state.expenses.map((expense) => expense.amount);
@@ -96,7 +98,6 @@ export const appSlice = createSlice({
       });
     },
     setContent: (state, action) => {
-      console.log(action.payload);
       state.types = action.payload.types;
       state.shops = action.payload.shops;
       state.rooms = action.payload.rooms;
@@ -127,7 +128,7 @@ export const appSlice = createSlice({
 
 export const calculateCategoryTotal = (state, category, types, type) => {
   return (state.dashboardData[types] = category
-    .filter((value, index, self) => self.indexOf(value) === index)
+    .filter((value, index, self) => self.indexOf(value) === index && !!value)
     .map((element) => ({
       name: element,
       total: state.expenses
@@ -137,7 +138,6 @@ export const calculateCategoryTotal = (state, category, types, type) => {
 };
 
 export const populateSuggestions = (state, action) => {
-  console.log(action.payload);
   if (action.payload.isSearch) {
     // populate suggestions
     state.suggestions = state.expenses
@@ -196,7 +196,6 @@ export const loadInitialData = () => async (dispatch) => {
 export const loadExpenses = () => async (dispatch) => {
   try {
     const expenses = await axios.get(`${serverUrl}/expenses`);
-    console.log(expenses.data.data);
     dispatch(setExpenses(expenses.data.data));
   } catch (e) {
     // TODO: use local server if the external fails
@@ -212,7 +211,6 @@ export const loadExpenses = () => async (dispatch) => {
 
 export const loadContent = () => async (dispatch) => {
   const content = await getAllContentfulData();
-  console.log(content);
   dispatch(setContent(content));
 };
 

@@ -55,6 +55,17 @@ const Home = () => {
 
         <div className="separator"></div>
 
+        <div className="dashboard-types">
+          {dashboardData.jobs?.map((job) => (
+            <div key={job.name} className="dashboard-job">
+              <p className="workers-name">{job.name}</p>
+              <p>{job.total.toLocaleString()}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="separator"></div>
+
         <div className="dashboard-shops">
           {dashboardData.shops?.map((shop) => {
             const shopImage = shops.filter(
@@ -77,7 +88,7 @@ const Home = () => {
 
         <div className="separator"></div>
 
-        <div className="dashboard-workers">
+        <div className="dashboard-types">
           {dashboardData.workers?.map((worker) => {
             return (
               worker.name !== "" && (
@@ -92,7 +103,7 @@ const Home = () => {
 
         <div className="separator"></div>
 
-        <div className="dashboard-rooms">
+        <div className="dashboard-types">
           {dashboardData.rooms?.slice(0, 4).map((room) => {
             return (
               room.name !== "" && (
