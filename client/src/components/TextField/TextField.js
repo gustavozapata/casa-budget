@@ -4,7 +4,15 @@ import { focusTextField, handleNewExpenseForm } from "../../store/appSlice";
 import SearchSuggestions from "../SearchSuggestions.js/SearchSuggestions";
 import "./TextField.css";
 
-const TextField = ({ label, name, value, type, center, isSearch }) => {
+const TextField = ({
+  label,
+  name,
+  value,
+  description,
+  type,
+  center,
+  isSearch,
+}) => {
   const dispatch = useDispatch();
 
   return (
@@ -12,6 +20,7 @@ const TextField = ({ label, name, value, type, center, isSearch }) => {
       <label htmlFor={name}>
         {label}
         <br />
+        <span className="textfield-desc">{description}</span>
         <input
           type={type}
           name={name}

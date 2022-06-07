@@ -150,6 +150,7 @@ function App() {
           </div>
           <TextField
             label="Worker"
+            description="Only when type Job is selected"
             name="worker"
             type="text"
             isSearch={true}

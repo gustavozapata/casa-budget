@@ -134,7 +134,7 @@ export const calculateCategoryTotal = (state, category, types, type) => {
       total: state.expenses
         .filter((expense) => expense[type] === element)
         .reduce((acc, curr) => acc + curr.amount, 0),
-    })));
+    }))).sort((a, b) => (a.total > b.total ? -1 : 1));
 };
 
 export const populateSuggestions = (state, action) => {

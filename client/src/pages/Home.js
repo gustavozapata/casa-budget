@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Header from "../layout/Header";
 import "./Home.css";
@@ -6,6 +6,7 @@ import "./Home.css";
 const Home = () => {
   const dashboardData = useSelector((state) => state.app.dashboardData);
   const shops = useSelector((state) => state.app.shops);
+  const [jobsExpand, setJobsExpand] = useState(false);
 
   useEffect(() => {
     // TODO: improve this by slowing down the number switching
@@ -44,7 +45,7 @@ const Home = () => {
             dashboardData.types?.find((type) => type.name === "Furniture").total
           ).toLocaleString()}
         </p>
-        <div className="dashboard-types">
+        <div className="dashboard-types top-cat">
           {dashboardData.types?.map((type) => (
             <div key={type.name} className="dashboard-type">
               <p className="workers-name">{type.name}s</p>
@@ -54,18 +55,32 @@ const Home = () => {
         </div>
 
         <div className="separator"></div>
-
+        <div className="section-heading">
+          <h3 className="subtitle">Jobs</h3>
+          <img
+            onClick={() => setJobsExpand(!jobsExpand)}
+            className={`${jobsExpand && "arrow-open"}`}
+            src="/images/chevron.png"
+            alt="arrow down"
+          />
+        </div>
         <div className="dashboard-types">
-          {dashboardData.jobs?.map((job) => (
-            <div key={job.name} className="dashboard-job">
-              <p className="workers-name">{job.name}</p>
-              <p>{job.total.toLocaleString()}</p>
-            </div>
-          ))}
+          {dashboardData.jobs
+            ?.slice(0, jobsExpand ? dashboardData.jobs.length : 3)
+            .map((job) => (
+              <div key={job.name} className="dashboard-job">
+                <p className="workers-name jobs-name" title={job.name}>
+                  {job.name.length > 16
+                    ? `${job.name.substring(0, 15)}...`
+                    : job.name}
+                </p>
+                <p>{job.total.toLocaleString()}</p>
+              </div>
+            ))}
         </div>
 
         <div className="separator"></div>
-
+        <h3 className="subtitle">Shops</h3>
         <div className="dashboard-shops">
           {dashboardData.shops?.map((shop) => {
             const shopImage = shops.filter(
@@ -87,7 +102,7 @@ const Home = () => {
         </div>
 
         <div className="separator"></div>
-
+        <h3 className="subtitle">Workers</h3>
         <div className="dashboard-types">
           {dashboardData.workers?.map((worker) => {
             return (
@@ -102,7 +117,7 @@ const Home = () => {
         </div>
 
         <div className="separator"></div>
-
+        <h3 className="subtitle">Rooms</h3>
         <div className="dashboard-types">
           {dashboardData.rooms?.slice(0, 4).map((room) => {
             return (
