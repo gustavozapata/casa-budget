@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Filter from "../components/Filter/Filter";
 import Header from "../layout/Header";
 import { sortExpensesBy } from "../store/appSlice";
 import "./Expenses.css";
@@ -20,6 +21,7 @@ const Expenses = () => {
       <div className="expenses-header">
         <h1>Expenses</h1>
       </div>
+      <Filter />
       <div className="expenses-main">
         <div className="list-header">
           <span onClick={() => sortBy("name")}>
