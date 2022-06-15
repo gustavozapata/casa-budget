@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Filter from "../components/Filter/Filter";
 import Header from "../layout/Header";
-import { sortExpensesBy } from "../store/appSlice";
+import { filterExpenses, sortExpensesBy } from "../store/appSlice";
 import "./Expenses.css";
 
 const Expenses = () => {
   const [sortType, setSortType] = useState("date");
-  const expenses = useSelector((state) => state.app.expenses);
+  const expensesList = useSelector((state) => state.app.expensesList);
   const dispatch = useDispatch();
 
   const sortBy = (value) => {
@@ -21,7 +21,7 @@ const Expenses = () => {
       <div className="expenses-header">
         <h1>Expenses</h1>
       </div>
-      <Filter />
+      <Filter handleChange={(e) => dispatch(filterExpenses(e.target.value))} />
       <div className="expenses-main">
         <div className="list-header">
           <span onClick={() => sortBy("name")}>
@@ -44,7 +44,7 @@ const Expenses = () => {
           </span>
         </div>
         <div className="expenses-list">
-          {expenses.map((expense) => (
+          {expensesList.map((expense) => (
             <div className="expense-item" key={expense._id}>
               <span>{expense.name}</span>
               <span>£{expense.amount}</span>

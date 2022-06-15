@@ -19,6 +19,7 @@ const initialNewExpensesForm = {
 
 const initialState = {
   expenses: [],
+  expensesList: [],
   suggestions: [],
   textFieldFocus: "",
   serverError: "",
@@ -42,6 +43,7 @@ export const appSlice = createSlice({
   reducers: {
     setExpenses: (state, action) => {
       state.expenses = action.payload;
+      state.expensesList = action.payload;
     },
     setLogin: (state, action) => {
       state.isLogged = action.payload;
@@ -87,7 +89,7 @@ export const appSlice = createSlice({
       state.textFieldFocus = "";
     },
     sortExpensesBy: (state, action) => {
-      state.expenses.sort((a, b) => {
+      state.expensesList.sort((a, b) => {
         if (a[action.payload] > b[action.payload]) {
           return -1;
         }
@@ -96,6 +98,17 @@ export const appSlice = createSlice({
         }
         return 0;
       });
+    },
+    filterExpenses: (state, action) => {
+      let filteredExpenses = state.expenses.filter((expense) => {
+        return (
+          expense.name.toLowerCase().includes(action.payload.toLowerCase()) ||
+          expense.description
+            .toLowerCase()
+            .includes(action.payload.toLowerCase())
+        );
+      });
+      state.expensesList = filteredExpenses;
     },
     setContent: (state, action) => {
       state.types = action.payload.types;
@@ -168,6 +181,7 @@ export const {
   setServerError,
   logout,
   sortExpensesBy,
+  filterExpenses,
   cleanNewExpenseForm,
 } = appSlice.actions;
 
