@@ -1,8 +1,9 @@
 import React from "react";
+import "./Filter.css";
 
 const Filter = () => {
   return (
-    <div>
+    <div className="Filter">
       <input type="text" placeholder="Filter expenses" />
     </div>
   );
