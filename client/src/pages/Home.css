@@ -85,7 +85,7 @@
   font-weight: 500;
   margin: 2px auto;
 }
-.no-furniture {
+.with-furniture {
   margin: 0;
 }
 .separator {
@@ -98,7 +98,7 @@
   font-size: 1.1em;
   margin-bottom: 0px;
   margin-top: 30px;
-  color: #0f3679
+  color: #0f3679;
 }
 .top-cat {
   margin-top: 30px;

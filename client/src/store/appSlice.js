@@ -103,6 +103,8 @@ export const appSlice = createSlice({
       let filteredExpenses = state.expenses.filter((expense) => {
         return (
           expense.name.toLowerCase().includes(action.payload.toLowerCase()) ||
+          expense.job?.toLowerCase().includes(action.payload.toLowerCase()) ||
+          expense.amount.toString().includes(action.payload) ||
           expense.description
             .toLowerCase()
             .includes(action.payload.toLowerCase())

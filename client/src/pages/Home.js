@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import Header from "../layout/Header";
 import "./Home.css";
@@ -8,6 +8,13 @@ const Home = () => {
   const shops = useSelector((state) => state.app.shops);
   const [jobsExpand, setJobsExpand] = useState(false);
 
+  const getTotalWithFurniture = useCallback(() => {
+    const furniture = dashboardData.types?.find(
+      (type) => type.name === "Furniture"
+    );
+    return dashboardData.total ? dashboardData.total - furniture?.total : 0;
+  }, [dashboardData]);
+
   useEffect(() => {
     // TODO: improve this by slowing down the number switching
     function animateValue(obj, start, end, duration) {
@@ -15,7 +22,8 @@ const Home = () => {
       const step = (timestamp) => {
         if (!startTimestamp) startTimestamp = timestamp;
         const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-        obj.innerHTML = "£" + (progress * (end - start) + start).toFixed(2);
+        obj.innerHTML =
+          "£" + (progress * (end - start) + start).toLocaleString();
         if (progress < 1) {
           window.requestAnimationFrame(step);
         }
@@ -23,8 +31,13 @@ const Home = () => {
       window.requestAnimationFrame(step);
     }
     const obj = document.getElementById("value");
-    animateValue(obj, dashboardData.previousTotal, dashboardData.total, 800);
-  }, [dashboardData]);
+    animateValue(
+      obj,
+      dashboardData.previousTotal,
+      getTotalWithFurniture(),
+      800
+    );
+  }, [dashboardData, getTotalWithFurniture]);
 
   return (
     <div className="Home">
@@ -32,18 +45,12 @@ const Home = () => {
       <main>
         <h2>Total</h2>
         <p
-          className="total-amount"
           id="value"
+          className="total-amount"
           onClick={() => window.navigator.vibrate(500)}
-        >
-          £{dashboardData.total?.toLocaleString()}
-        </p>
-        <p className="no-furniture">
-          no furniture: £
-          {(
-            dashboardData.total -
-            dashboardData.types?.find((type) => type.name === "Furniture").total
-          ).toLocaleString()}
+        ></p>
+        <p className="with-furniture">
+          including furniture £{dashboardData.total?.toLocaleString()}
         </p>
         <div className="dashboard-types top-cat">
           {dashboardData.types?.map((type) => (
