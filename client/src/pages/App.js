@@ -101,6 +101,17 @@ function App() {
             value={newExpensesForm.job}
           />
 
+          {newExpensesForm.type === "Job" && (
+            <TextField
+              label="Worker"
+              description="Only when type Job is selected"
+              name="worker"
+              type="text"
+              isSearch={true}
+              value={newExpensesForm.worker}
+            />
+          )}
+
           <p className="label">Shop</p>
           <div className="shops">
             {shops.map((shop) => (
@@ -148,14 +159,6 @@ function App() {
             ))}
             <span className="new-btn">+</span>
           </div>
-          <TextField
-            label="Worker"
-            description="Only when type Job is selected"
-            name="worker"
-            type="text"
-            isSearch={true}
-            value={newExpensesForm.worker}
-          />
           <TextField
             label="Company"
             name="company"
