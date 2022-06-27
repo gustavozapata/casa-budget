@@ -24,7 +24,6 @@ const initialState = {
   textFieldFocus: "",
   serverError: "",
   isLogged: JSON.parse(localStorage.getItem("isLogged")),
-  // isLogged: false,
   newExpensesForm: {
     ...initialNewExpensesForm,
   },

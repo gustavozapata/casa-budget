@@ -16,7 +16,7 @@ const Home = () => {
   }, [dashboardData]);
 
   useEffect(() => {
-    // TODO: improve this by slowing down the number switching
+    // TODO: Improve this by slowing down the number switching
     function animateValue(obj, start, end, duration) {
       let startTimestamp = null;
       const step = (timestamp) => {
