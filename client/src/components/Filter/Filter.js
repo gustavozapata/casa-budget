@@ -9,6 +9,7 @@ const Filter = ({ handleChange }) => {
         placeholder="Filter expenses"
         onChange={handleChange}
       />
+      {/* TODO: add x icon to clear filter */}
     </div>
   );
 };
