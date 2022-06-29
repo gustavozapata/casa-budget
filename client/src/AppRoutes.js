@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import App from "./pages/App";
 import Expenses from "./pages/Expenses";
 import Login from "./pages/Login";
+import Scanner from "./components/Scanner";
 
 const AppRoutes = () => {
   return (
@@ -15,6 +16,7 @@ const AppRoutes = () => {
           <Route path="/" element={<Home />} />
           <Route path="/expenses" element={<Expenses />} />
           <Route path="/add-expense" element={<App />} />
+          <Route path="/scanner" element={<Scanner />} />
         </Route>
         <Route element={<PublicLayout />}>
           <Route path="/login" element={<Login />} />

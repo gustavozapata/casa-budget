@@ -30,6 +30,45 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script src="unmi.js"></script>
+    <style>
+      .result {
+        background-color: green;
+        color: #fff;
+        padding: 20px;
+      }
+      .row {
+        display: flex;
+      }
+    </style>
+
+    <div id="scanner" class="row" style="display: none">
+      <a href="/">Home</a>
+      <div class="col">
+        <div style="width: 500px" id="reader"></div>
+      </div>
+      <div class="col" style="padding: 30px">
+        <h4>SCAN RESULT</h4>
+        <div id="result">Result Here</div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function onScanSuccess(qrCodeMessage) {
+        document.getElementById("result").innerHTML =
+          '<span class="result">' + qrCodeMessage + "</span>";
+      }
+
+      function onScanError(errorMessage) {
+        //handle scan error
+      }
+
+      var html5QrcodeScanner = new Html5QrcodeScanner("reader", {
+        fps: 10,
+        qrbox: 250,
+      });
+      html5QrcodeScanner.render(onScanSuccess, onScanError);
+    </script>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Header from "../layout/Header";
 import "./Home.css";
 
@@ -43,7 +44,9 @@ const Home = () => {
     <div className="Home">
       <Header />
       <main>
-        <h2>Total</h2>
+        <Link style={{ textDecoration: "none", color: "black" }} to="/scanner">
+          <h2>Total</h2>
+        </Link>
         <p
           id="value"
           className="total-amount"
